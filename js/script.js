@@ -8,6 +8,8 @@ let timeline = gsap.timeline({
   defaults: { duration: 1.3, ease: "power3.inOut" },
 });
 
+gsap.registerPlugin(ScrollTrigger);
+
 timeline
   .to(".image-wrap", {
     height: "440px",
@@ -45,6 +47,193 @@ function getYDistance(el) {
     window.innerHeight - document.querySelector(el).getBoundingClientRect().top
   );
 }
+
+gsap.fromTo(
+  ".about .title-grid--one",
+  { y: 150 },
+  {
+    y: 0,
+    scrollTrigger: {
+      trigger: ".about",
+      start: "top bottom",
+      end: "top 10%",
+      scrub: 1,
+    },
+    ease: "none",
+  }
+);
+
+gsap.fromTo(
+  ".about .title-grid--one",
+  {
+    y: 0,
+    immediateRender: false,
+  },
+  {
+    y: 150,
+    scrollTrigger: {
+      trigger: ".about",
+      start: "bottom 90%",
+      end: "bottom top",
+      scrub: 1,
+      onEnter: () => {
+        gsap.set(".about .title-grid--one", { y: 0, clearProps: "transform" });
+      },
+    },
+    ease: "none",
+  }
+);
+
+gsap.fromTo(
+  ".about2",
+  {
+    y: -150,
+    x: -150,
+  },
+  {
+    y: 0,
+    x: 0,
+    scrollTrigger: {
+      trigger: ".about",
+      start: "top bottom",
+      end: "top 10%",
+      scrub: 1,
+    },
+    ease: "none",
+  }
+);
+
+gsap.fromTo(
+  ".about2",
+  {
+    y: 0,
+    x: 0,
+    immediateRender: false,
+  },
+  {
+    y: -150,
+    x: -150,
+    scrollTrigger: {
+      trigger: ".about",
+      start: "bottom 90%",
+      end: "bottom top",
+      scrub: 1,
+      onEnter: () => {
+        gsap.set(".about2", { y: 0, x: 0, clearProps: "transform" });
+      },
+    },
+    ease: "none",
+  }
+);
+
+gsap.fromTo(
+  ".about-text",
+  {
+    y: 100,
+  },
+  {
+    y: -28,
+    scrollTrigger: {
+      trigger: ".about",
+      start: "top bottom",
+      end: "top 10%",
+      scrub: 1,
+    },
+    ease: "none",
+  }
+);
+
+gsap.fromTo(
+  ".about-text",
+  {
+    y: -28, // Start from the current position (after forward animation)
+    immediateRender: false,
+  },
+  {
+    y: 100, // Animate back to y: 100 when leaving
+    scrollTrigger: {
+      trigger: ".about",
+      start: "bottom 90%",
+      end: "bottom top",
+      scrub: 1,
+    },
+    ease: "none",
+  }
+);
+
+gsap.fromTo(
+  ".about3",
+  {
+    x: 75,
+  },
+  {
+    x: 0,
+    scrollTrigger: {
+      trigger: ".about",
+      start: "top bottom",
+      end: "top 10%",
+      scrub: 1,
+    },
+    ease: "none",
+  }
+);
+
+gsap.fromTo(
+  ".about3",
+  {
+    x: 0,
+    immediateRender: false,
+  },
+  {
+    x: 75,
+    scrollTrigger: {
+      trigger: ".about",
+      start: "bottom 90%",
+      end: "bottom top",
+      scrub: 1,
+    },
+    ease: "none",
+  }
+);
+
+gsap.fromTo(
+  ".about4",
+  {
+    x: -75,
+    y: 100,
+  },
+  {
+    x: 0,
+    y: 0,
+    scrollTrigger: {
+      trigger: ".about",
+      start: "top bottom",
+      end: "top 10%",
+      scrub: 1,
+    },
+    ease: "none",
+  }
+);
+
+gsap.fromTo(
+  ".about4",
+  {
+    x: 0,
+    y: 0,
+    immediateRender: false,
+  },
+  {
+    x: -75,
+    y: 100,
+    scrollTrigger: {
+      trigger: ".about",
+      start: "bottom 90%",
+      end: "bottom top",
+      scrub: 1,
+    },
+    ease: "none",
+  }
+);
 
 window.addEventListener("mousemove", (e) => {
   let xPosition = e.clientX;
