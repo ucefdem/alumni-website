@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alumly Website</title>
   <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
@@ -79,7 +80,7 @@
               <button class="more-btn">
                 View All <img src="./img/arrow.png" />
               </button>
-              <img src="./img/about.png" />
+              <img class="about0" src="./img/about.png" />
             </div>
             <div class="about2"></div>
             <img src="./img/about3.png" class="about3" />
@@ -218,128 +219,174 @@
           </h1>
         </div>
         <div class="board-flex">
-          <div class="board-carousel">
-            <div class="board-card-wrap">
-              <div class="board-card">
-                <img src="./img/ali.png" alt="Ali Boughazi" />
-                <div class="board-card-title">
-                  <h2>Ali Boughazi</h2>
-                  <h6>Ensimag</h6>
+          <div class="swiper board-swiper" id="boardSwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide board-card-wrap">
+                <div class="board-card">
+                  <img src="./img/ali.png" alt="Ali Boughazi" />
+                  <div class="board-card-title">
+                    <h2>Ali Boughazi</h2>
+                    <h6>Ensimag</h6>
+                  </div>
+                  <h3>President</h3>
                 </div>
-                <h3>President</h3>
-              </div>
-              <div class="card-footer">
-                <h4>Ali</h4>
-                <a href="https://www.linkedin.com/in/ali-boughazi-98a141204/" target="_blank">
-                  <i class="bx bxl-linkedin"></i>
-                </a>
-              </div>
-            </div>
-            <div class="board-card-wrap">
-              <div class="board-card">
-                <img src="./img/zaid.png" alt="Zaid Harrak" />
-                <div class="board-card-title">
-                  <h2>Zaid Harrak</h2>
-                  <h6>CentraleSupélec</h6>
+                <div class="card-footer">
+                  <h4>Ali</h4>
+                  <a href="https://www.linkedin.com/in/ali-boughazi-98a141204/" target="_blank">
+                    <i class="bx bxl-linkedin"></i>
+                  </a>
                 </div>
-                <h3>Vice President</h3>
               </div>
-              <div class="card-footer">
-                <h4>Zaid</h4>
-                <a href="https://www.linkedin.com/in/zaid-harrak/" target="_blank">
-                  <i class="bx bxl-linkedin"></i>
-                </a>
-              </div>
-            </div>
-            <div class="board-card-wrap">
-              <div class="board-card">
-                <img src="./img/youssef.png" alt="Youssef Demghart" />
-                <div class="board-card-title">
-                  <h2>Youssef Demghart</h2>
-                  <h6>Télécom Paris</h6>
+              <div class="swiper-slide board-card-wrap">
+                <div class="board-card">
+                  <img src="./img/zaid.png" alt="Zaid Harrak" />
+                  <div class="board-card-title">
+                    <h2>Zaid Harrak</h2>
+                    <h6>CentraleSupélec</h6>
+                  </div>
+                  <h3>Vice President</h3>
                 </div>
-                <h3>Chief Technical Officer (CTO)</h3>
-              </div>
-              <div class="card-footer">
-                <h4>Youssef</h4>
-                <a href="https://www.linkedin.com/in/youssef-demghart-060541285/" target="_blank">
-                  <i class="bx bxl-linkedin"></i>
-                </a>
-              </div>
-            </div>
-            <div class="board-card-wrap">
-              <div class="board-card">
-                <img src="./img/aymen.png" alt="Aymen Mrini" />
-                <div class="board-card-title">
-                  <h2>Aymen Mrini</h2>
-                  <h6>ENSEEIHT</h6>
+                <div class="card-footer">
+                  <h4>Zaid</h4>
+                  <a href="https://www.linkedin.com/in/zaid-harrak/" target="_blank">
+                    <i class="bx bxl-linkedin"></i>
+                  </a>
                 </div>
-                <h3>General Secretary</h3>
               </div>
-              <div class="card-footer">
-                <h4>Aymen</h4>
-                <a href="https://www.linkedin.com/in/aymen-mrini-55a45229a/" target="_blank">
-                  <i class="bx bxl-linkedin"></i>
-                </a>
-              </div>
-            </div>
-            <div class="board-card-wrap">
-              <div class="board-card">
-                <img src="./img/ali.png" alt="Ali Boughazi" />
-                <div class="board-card-title">
-                  <h2>Ali Boughazi</h2>
-                  <h6>Ensimag</h6>
+              <div class="swiper-slide board-card-wrap">
+                <div class="board-card">
+                  <img src="./img/youssef.png" alt="Youssef Demghart" />
+                  <div class="board-card-title">
+                    <h2>Youssef Demghart</h2>
+                    <h6>Télécom Paris</h6>
+                  </div>
+                  <h3>Chief Technical Officer (CTO)</h3>
                 </div>
-                <h3>President</h3>
-              </div>
-              <div class="card-footer">
-                <h4>Ali</h4>
-                <a href="https://www.linkedin.com/in/ali-boughazi-98a141204/" target="_blank">
-                  <i class="bx bxl-linkedin"></i>
-                </a>
-              </div>
-            </div>
-            <div class="board-card-wrap">
-              <div class="board-card">
-                <img src="./img/zaid.png" alt="Zaid Harrak" />
-                <div class="board-card-title">
-                  <h2>Zaid Harrak</h2>
-                  <h6>CentraleSupélec</h6>
+                <div class="card-footer">
+                  <h4>Youssef</h4>
+                  <a href="https://www.linkedin.com/in/youssef-demghart-060541285/" target="_blank">
+                    <i class="bx bxl-linkedin"></i>
+                  </a>
                 </div>
-                <h3>Vice President</h3>
               </div>
-              <div class="card-footer">
-                <h4>Zaid</h4>
-                <a href="https://www.linkedin.com/in/zaid-harrak/" target="_blank">
-                  <i class="bx bxl-linkedin"></i>
-                </a>
-              </div>
-            </div>
-            <div class="board-card-wrap">
-              <div class="board-card">
-                <img src="./img/youssef.png" alt="Youssef Demghart" />
-                <div class="board-card-title">
-                  <h2>Youssef Demghart</h2>
-                  <h6>Télécom Paris</h6>
+              <div class="swiper-slide board-card-wrap">
+                <div class="board-card">
+                  <img src="./img/aymen2.png" alt="Aymen Mrini" />
+                  <div class="board-card-title">
+                    <h2>Aymen Mrini</h2>
+                    <h6>ENSEEIHT</h6>
+                  </div>
+                  <h3>General Secretary</h3>
                 </div>
-                <h3>Chief Technical Officer (CTO)</h3>
+                <div class="card-footer">
+                  <h4>Aymen</h4>
+                  <a href="https://www.linkedin.com/in/aymen-mrini-55a45229a/" target="_blank">
+                    <i class="bx bxl-linkedin"></i>
+                  </a>
+                </div>
               </div>
-              <div class="card-footer">
-                <h4>Youssef</h4>
-                <a href="https://www.linkedin.com/in/youssef-demghart-060541285/" target="_blank">
-                  <i class="bx bxl-linkedin"></i>
-                </a>
+              <div class="swiper-slide board-card-wrap">
+                <div class="board-card">
+                  <img src="./img/ali.png" alt="Ali Boughazi" />
+                  <div class="board-card-title">
+                    <h2>Ali Boughazi</h2>
+                    <h6>Ensimag</h6>
+                  </div>
+                  <h3>President</h3>
+                </div>
+                <div class="card-footer">
+                  <h4>Ali</h4>
+                  <a href="https://www.linkedin.com/in/ali-boughazi-98a141204/" target="_blank">
+                    <i class="bx bxl-linkedin"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="swiper-slide board-card-wrap">
+                <div class="board-card">
+                  <img src="./img/zaid.png" alt="Zaid Harrak" />
+                  <div class="board-card-title">
+                    <h2>Zaid Harrak</h2>
+                    <h6>CentraleSupélec</h6>
+                  </div>
+                  <h3>Vice President</h3>
+                </div>
+                <div class="card-footer">
+                  <h4>Zaid</h4>
+                  <a href="https://www.linkedin.com/in/zaid-harrak/" target="_blank">
+                    <i class="bx bxl-linkedin"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="swiper-slide board-card-wrap">
+                <div class="board-card">
+                  <img src="./img/youssef.png" alt="Youssef Demghart" />
+                  <div class="board-card-title">
+                    <h2>Youssef Demghart</h2>
+                    <h6>Télécom Paris</h6>
+                  </div>
+                  <h3>Chief Technical Officer (CTO)</h3>
+                </div>
+                <div class="card-footer">
+                  <h4>Youssef</h4>
+                  <a href="https://www.linkedin.com/in/youssef-demghart-060541285/" target="_blank">
+                    <i class="bx bxl-linkedin"></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="left-section">
+          <h1>Aujourd'hui<br> Pour Demain <span class="leaiiba">
+              <span class="circle">
+                <span class="point one"></span>
+              </span>
+              <span class="point two"></span>
+            </span></h1>
+          <p>
+            Join the platform and get access to past papers from the
+            <strong>X</strong>, <strong>Mines</strong> and <strong>Centrales</strong>
+            competitive exams: subjects organised by chapter with full solutions.
+            Prepare with the resources you need.
+          </p>
+          <button class="btn btn-primary">Join the platform</button>
+        </div>
+        <div class="right-section">
+          <img src="./img/cta2.png" alt="Grandes écoles exam preparation" />
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-left">
+        <span>Follow us on</span>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/company/alumly-anciens-du-lymed/" target="_blank"
+            aria-label="Alumly on LinkedIn">
+            <i class="bx bxl-linkedin"></i>
+          </a>
+          <a href="https://www.instagram.com/alumni_lymed/" target="_blank" aria-label="Alumly on Instagram">
+            <i class="bx bxl-instagram"></i>
+          </a>
+        </div>
+      </div>
+      <div class="footer-right">
+        <span>&copy; Copyright 2026. Developed with <span class="footer-heart">l7ob</span> by beloved Alumly</span>
+      </div>
+    </div>
+  </footer>
 
   <!-- Javascript Files -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="js/script.js"></script>
 </body>
 

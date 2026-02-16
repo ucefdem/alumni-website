@@ -24,14 +24,14 @@ timeline
       backgroundPosition: "50% 58%",
       y: "0",
     },
-    1.5
+    1.5,
   )
   .from(
     ".big-name",
     {
       y: getYDistance(".big-name"),
     },
-    1.5
+    1.5,
   )
   .from(
     ".hide",
@@ -39,7 +39,7 @@ timeline
       opacity: "0",
       duration: 1.3,
     },
-    1.5
+    1.5,
   );
 
 function getYDistance(el) {
@@ -60,7 +60,7 @@ gsap.fromTo(
       scrub: 1,
     },
     ease: "none",
-  }
+  },
 );
 
 gsap.fromTo(
@@ -81,7 +81,7 @@ gsap.fromTo(
       },
     },
     ease: "none",
-  }
+  },
 );
 
 gsap.fromTo(
@@ -100,7 +100,7 @@ gsap.fromTo(
       scrub: 1,
     },
     ease: "none",
-  }
+  },
 );
 
 gsap.fromTo(
@@ -123,7 +123,7 @@ gsap.fromTo(
       },
     },
     ease: "none",
-  }
+  },
 );
 
 gsap.fromTo(
@@ -140,7 +140,7 @@ gsap.fromTo(
       scrub: 1,
     },
     ease: "none",
-  }
+  },
 );
 
 gsap.fromTo(
@@ -158,16 +158,18 @@ gsap.fromTo(
       scrub: 1,
     },
     ease: "none",
-  }
+  },
 );
 
 gsap.fromTo(
   ".about3",
   {
     x: 75,
+    y: 100,
   },
   {
     x: 0,
+    y: 0,
     scrollTrigger: {
       trigger: ".about",
       start: "top bottom",
@@ -175,17 +177,19 @@ gsap.fromTo(
       scrub: 1,
     },
     ease: "none",
-  }
+  },
 );
 
 gsap.fromTo(
   ".about3",
   {
     x: 0,
+    y: 0,
     immediateRender: false,
   },
   {
     x: 75,
+    y: 80,
     scrollTrigger: {
       trigger: ".about",
       start: "bottom 90%",
@@ -193,7 +197,7 @@ gsap.fromTo(
       scrub: 1,
     },
     ease: "none",
-  }
+  },
 );
 
 gsap.fromTo(
@@ -212,7 +216,7 @@ gsap.fromTo(
       scrub: 1,
     },
     ease: "none",
-  }
+  },
 );
 
 gsap.fromTo(
@@ -232,8 +236,130 @@ gsap.fromTo(
       scrub: 1,
     },
     ease: "none",
-  }
+  },
 );
+
+gsap.fromTo(
+  ".about .title-grid--two",
+  { y: 70 },
+  {
+    y: 0,
+    scrollTrigger: {
+      trigger: ".about",
+      start: "top bottom",
+      end: "top 10%",
+      scrub: 1,
+    },
+    ease: "none",
+  },
+);
+
+gsap.fromTo(
+  ".about .title-grid--two",
+  {
+    y: 0,
+    immediateRender: false,
+  },
+  {
+    y: 70,
+    scrollTrigger: {
+      trigger: ".about",
+      start: "bottom 90%",
+      end: "bottom top",
+      scrub: 1,
+      onEnter: () => {
+        gsap.set(".about .title-grid--one", { y: 0, clearProps: "transform" });
+      },
+    },
+    ease: "none",
+  },
+);
+
+gsap.fromTo(
+  ".more-btn",
+  { y: 40 },
+  {
+    y: 0,
+    scrollTrigger: {
+      trigger: ".about",
+      start: "top bottom",
+      end: "top 10%",
+      scrub: 1,
+    },
+    ease: "none",
+  },
+);
+
+gsap.fromTo(
+  ".more-btn",
+  {
+    y: 0,
+    immediateRender: false,
+  },
+  {
+    y: 40,
+    scrollTrigger: {
+      trigger: ".about",
+      start: "bottom 90%",
+      end: "bottom top",
+      scrub: 1,
+      onEnter: () => {
+        gsap.set(".about .title-grid--one", { y: 0, clearProps: "transform" });
+      },
+    },
+    ease: "none",
+  },
+);
+
+// Mission section: 3 cards enter from right + fade in (complete when section bottom hits viewport bottom)
+gsap.fromTo(
+  ".mission-grid .card",
+  {
+    x: 120,
+    opacity: 0,
+  },
+  {
+    x: 0,
+    opacity: 1,
+    scrollTrigger: {
+      trigger: ".mission",
+      start: "top bottom",
+      end: "bottom bottom",
+      scrub: 1,
+    },
+    ease: "none",
+  },
+);
+
+// Mission section: cards exit to the right + fade out
+gsap.fromTo(
+  ".mission-grid .card",
+  {
+    x: 0,
+    opacity: 1,
+    immediateRender: false,
+  },
+  {
+    x: 120,
+    opacity: 0,
+    scrollTrigger: {
+      trigger: ".mission",
+      start: "bottom bottom",
+      end: "bottom top",
+      scrub: 1,
+    },
+    ease: "none",
+  },
+);
+
+// Board section: Swiper carousel
+const boardSwiper = new Swiper("#boardSwiper", {
+  slidesPerView: "auto",
+  spaceBetween: 24,
+  grabCursor: true,
+  resistance: true,
+  resistanceRatio: 0.85,
+});
 
 window.addEventListener("mousemove", (e) => {
   let xPosition = e.clientX;

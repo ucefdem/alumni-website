@@ -22,6 +22,7 @@
   --color-secondary: #ffacac;
   --color-bg: #ededed;
   --color-white: #ffffff;
+  --color-bg-2: #b6ceea;
 
   /* Colors - Text */
   --color-text-primary: #333333;
@@ -36,7 +37,7 @@
 
   /* Colors - Borders & Dividers */
   --color-border: #d8d8d8;
-  --color-border-light: rgba(98, 103, 101, 0.9);
+  --color-border-light: rgba(186, 188, 196, 0.5);
   --color-border-hover: rgba(186, 196, 191, 0.5);
 
   /* Colors - Gradients */
@@ -127,6 +128,11 @@
 
 ::selection {
   background-color: rgba(0, 0, 0, 0.8);
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -457,9 +463,10 @@ h6 {
   z-index: var(--z-overlay);
   opacity: 0;
   pointer-events: none;
-  transition-duration: var(--transition-fast), var(--transition-normal),
-    var(--transition-normal), var(--transition-normal),
-    var(--transition-very-fast);
+  mix-blend-mode: difference;
+  transition-duration:
+    var(--transition-fast), var(--transition-normal), var(--transition-normal),
+    var(--transition-normal), var(--transition-very-fast);
   transition-property: opacity, width, height, background-color, transform;
 }
 
@@ -475,6 +482,7 @@ h6 {
   z-index: var(--z-overlay);
   opacity: 0;
   pointer-events: none;
+  mix-blend-mode: difference;
   transition: var(--transition-fast) opacity;
 }
 
@@ -493,6 +501,7 @@ h6 {
   background-color: var(--color-primary);
   width: 100%;
   overflow: hidden;
+  scroll-snap-align: start;
 }
 
 .showcase-area .container {
@@ -646,6 +655,7 @@ h6 {
 .about {
   background-color: var(--color-bg);
   overflow: hidden;
+  scroll-snap-align: start;
 }
 
 .about .comment {
@@ -853,7 +863,8 @@ h6 {
    ======================================== */
 
 .mission {
-  background-color: var(--color-text);
+  background-color: var(--color-bg);
+  scroll-snap-align: end;
 }
 
 /* Unified horizontal leaiiba for section headings */
@@ -936,6 +947,10 @@ h6 {
 }
 
 /* Contact Form */
+.contact {
+  scroll-snap-align: start;
+}
+
 .contact .inputs-wrapper {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1002,19 +1017,32 @@ textarea.contact-input {
 
 .board {
   background-color: var(--color-bg);
+  scroll-snap-align: end;
 }
 
 .board .container {
   max-width: 100%;
-  padding: 0;
+  padding: 5rem 0;
   display: grid;
-  grid-template-columns: 6.25rem 1fr;
+  grid-template-columns: 10rem 1fr;
   align-items: center;
   justify-content: center;
 }
 
 .board .section-heading {
-  transform: rotate(-90deg);
+  padding: 0;
+}
+
+.board .section-heading h1 {
+  transform: rotate(-90deg) translateY(10px);
+  transform-origin: center center;
+  font-size: var(--font-size-4xl);
+  white-space: nowrap;
+}
+
+.board .section-heading::after,
+.board .section-heading::before {
+  display: none;
 }
 
 /* Board section uses the unified horizontal leaiiba */
@@ -1024,27 +1052,130 @@ textarea.contact-input {
   overflow: hidden;
 }
 
+.board .board-swiper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.board .board-swiper .swiper-slide {
+  width: 21.875rem;
+  flex-shrink: 0;
+}
+
 .board .board-card {
   width: 100%;
   height: 31.25rem;
   overflow: hidden;
 }
 
-.board .board-carousel {
-  width: 100%;
-  display: flex;
-  transform: translateX(0);
-  gap: var(--spacing-md);
-  transition: transform var(--transition-slow) ease-in-out;
-}
-
 .board .board-card-wrap {
-  min-width: 21.875rem;
-  background-color: var(--color-primary);
+  box-sizing: border-box;
 }
 
 .board-card-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.card-footer {
+  padding-top: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-footer h4 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #959595;
+}
+
+.card-footer a {
+  color: #909090;
+  font-size: 1.3rem;
+}
+
+/* ========================================
+   CTA SECTION
+   ======================================== */
+
+.cta {
+  background-color: var(--color-bg);
+  scroll-snap-align: end;
+  padding: var(--spacing-5xl) var(--spacing-3xl);
+}
+
+.cta .container {
+  background-color: var(--color-bg-2);
+  display: grid;
+  padding: 0;
+  grid-template-columns: 1fr 1fr;
+}
+
+.cta .left-section {
+  padding: var(--spacing-5xl) 4rem var(--spacing-5xl) 0;
+}
+
+.cta .left-section h1 {
+  font-family: "bizantheum";
+  font-size: var(--font-size-4xl);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.cta .right-section {
+  position: relative;
+}
+
+.cta .right-section img {
+  position: absolute;
+  bottom: 0%;
+  right: 0;
+  width: 80%;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+footer {
+  background-color: var(--color-primary);
+  color: var(--color-text-lightest);
+  scroll-snap-align: end;
+}
+
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  gap: var(--spacing-2xl);
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  font-size: 0.9rem;
+}
+
+.footer-social {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.footer-social a {
+  color: var(--color-text-lightest);
+  font-size: 1.3rem;
+}
+
+.footer-right {
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+.footer-heart {
+  color: var(--color-secondary);
+  font-weight: 600;
 }
