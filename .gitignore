@@ -1,0 +1,7 @@
+.DS_Store
+.vscode/
+img/originals/
+img/optimized/
+.env
+.env.*
+node_modules/

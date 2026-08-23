@@ -1,14 +1,48 @@
 const cursor_circle = document.querySelector(".cursor-circle"),
   cursor = document.querySelectorAll(".cursor"),
-  elements = document.querySelectorAll(".getHover"),
-  image_wrap = document.querySelector(".image-wrap"),
-  curr_lines = document.querySelectorAll(".line .curr");
+  image_wrap = document.querySelector(".image-wrap");
+
+const touchNoHover = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
+/* Cursor first — must not depend on later animation code */
+if (!touchNoHover && cursor.length) {
+  const interactiveSelector =
+    "a, button, .btn, .more-btn, .getHover, .board-card, input[type='submit'], input[type='button'], summary, [role='button']";
+
+  window.addEventListener("mousemove", (e) => {
+    const target =
+      e.target instanceof Element ? e.target : e.target && e.target.parentElement;
+
+    cursor.forEach((el) => {
+      el.style.left = `${e.clientX}px`;
+      el.style.top = `${e.clientY}px`;
+      el.classList.add("is-visible");
+    });
+
+    if (cursor_circle) {
+      cursor_circle.classList.toggle(
+        "biggerCursor",
+        Boolean(target && target.closest(interactiveSelector)),
+      );
+    }
+  });
+
+  document.documentElement.addEventListener("mouseleave", () => {
+    cursor.forEach((el) => {
+      el.classList.remove("is-visible");
+    });
+    if (cursor_circle) cursor_circle.classList.remove("biggerCursor");
+  });
+} else {
+  document.body.style.cursor = "auto";
+}
+
+gsap.registerPlugin(ScrollTrigger);
 
 let timeline = gsap.timeline({
   defaults: { duration: 1.3, ease: "power3.inOut" },
 });
 
-gsap.registerPlugin(ScrollTrigger);
 
 timeline
   .to(".image-wrap", {
@@ -356,58 +390,174 @@ gsap.fromTo(
 const boardSwiper = new Swiper("#boardSwiper", {
   slidesPerView: "auto",
   spaceBetween: 24,
-  grabCursor: true,
+  grabCursor: false,
   resistance: true,
   resistanceRatio: 0.85,
+  loop: true,
+  speed: 800,
+  autoplay: {
+    delay: 3200,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: true,
+  },
 });
 
-window.addEventListener("mousemove", (e) => {
-  let xPosition = e.clientX;
-  let yPosition = e.clientY;
+gsap.fromTo(
+  ".board .board-flex",
+  { y: 50, opacity: 0 },
+  {
+    y: 0,
+    opacity: 1,
+    scrollTrigger: {
+      trigger: ".board",
+      start: "top 80%",
+      end: "top 45%",
+      scrub: 1,
+    },
+    ease: "none",
+  },
+);
 
-  cursor.forEach((el) => {
-    el.style.transform = `translate(calc(-50% + ${xPosition}px), calc(-50% + ${yPosition}px))`;
-    el.style.opacity = "1";
+const ctaMm = typeof gsap.matchMedia === "function" ? gsap.matchMedia() : null;
+
+if (ctaMm) {
+  ctaMm.add("(prefers-reduced-motion: no-preference)", () => {
+    /*
+     * Play/reverse (not scrub): scroll-snap jumps past scrub ranges, so the
+     * wipe/fade finished in one frame and looked like "no animation".
+     * toggleActions still fires on snap and reverses on the way out.
+     */
+    gsap.set(".cta .cta-eyebrow", { opacity: 0, x: -24 });
+    gsap.set(".cta .cta-line", { y: 64, opacity: 0 });
+    gsap.set(".cta .cta-block-dark", { y: 72, opacity: 0 });
+    gsap.set(".cta .cta-img", { clipPath: "inset(0 0 0 100%)", scale: 1.12 });
+    gsap.set(".cta .cta-join", { opacity: 0, y: 28, scale: 0.92 });
+
+    const ctaTl = gsap.timeline({
+      defaults: { ease: "power2.out" },
+      scrollTrigger: {
+        trigger: ".cta",
+        start: "top 72%",
+        end: "bottom 28%",
+        toggleActions: "play reverse play reverse",
+        invalidateOnRefresh: true,
+      },
+    });
+
+    ctaTl
+      .to(".cta .cta-eyebrow", { opacity: 1, x: 0, duration: 0.55 })
+      .to(
+        ".cta .cta-line",
+        { y: 0, opacity: 1, stagger: 0.1, duration: 0.7 },
+        0.12,
+      )
+      .to(
+        ".cta .cta-block-dark",
+        { y: 0, opacity: 1, duration: 0.65 },
+        0.28,
+      )
+      .to(
+        ".cta .cta-img",
+        { clipPath: "inset(0 0 0 0%)", scale: 1, duration: 0.95 },
+        0.2,
+      )
+      .to(
+        ".cta .cta-join",
+        { opacity: 1, y: 0, scale: 1, duration: 0.5 },
+        0.55,
+      );
   });
-});
 
-elements.forEach((el) => {
-  el.addEventListener("mouseover", () => {
-    cursor_circle.classList.add("biggerCursor");
+  ctaMm.add("(prefers-reduced-motion: reduce)", () => {
+    gsap.set(
+      ".cta .cta-eyebrow, .cta .cta-line, .cta .cta-block-dark, .cta .cta-img, .cta .cta-join",
+      { clearProps: "all" },
+    );
   });
-  el.addEventListener("mouseout", () => {
-    cursor_circle.classList.remove("biggerCursor");
+}
+
+/* Footer: same play/reverse in-out pattern as CTA (snap-safe) */
+if (ctaMm) {
+  ctaMm.add("(prefers-reduced-motion: no-preference)", () => {
+    gsap.set(".site-footer__meta", { opacity: 0, y: 28 });
+    gsap.set(".site-footer__brand", { opacity: 0, y: 48 });
+    gsap.set(".site-footer__line", { opacity: 0, y: 24 });
+    gsap.set(".site-footer__nav a", { opacity: 0, y: 20 });
+    gsap.set(".site-footer__base", { opacity: 0, y: 20 });
+
+    const footerTl = gsap.timeline({
+      defaults: { ease: "power2.out" },
+      scrollTrigger: {
+        trigger: ".site-footer",
+        start: "top 85%",
+        end: "bottom 15%",
+        toggleActions: "play reverse play reverse",
+        invalidateOnRefresh: true,
+      },
+    });
+
+    footerTl
+      .to(".site-footer__meta", { opacity: 1, y: 0, duration: 0.5 })
+      .to(
+        ".site-footer__brand",
+        { opacity: 1, y: 0, duration: 0.7 },
+        0.1,
+      )
+      .to(
+        ".site-footer__line",
+        { opacity: 1, y: 0, duration: 0.55 },
+        0.28,
+      )
+      .to(
+        ".site-footer__nav a",
+        { opacity: 1, y: 0, stagger: 0.06, duration: 0.45 },
+        0.35,
+      )
+      .to(
+        ".site-footer__base",
+        { opacity: 1, y: 0, duration: 0.5 },
+        0.5,
+      );
   });
-});
 
-image_wrap.addEventListener("mousemove", (e) => {
-  let rect = image_wrap.getBoundingClientRect(),
-    x = e.clientX - rect.left,
-    y = e.clientY - rect.top;
+  ctaMm.add("(prefers-reduced-motion: reduce)", () => {
+    gsap.set(
+      ".site-footer__meta, .site-footer__brand, .site-footer__line, .site-footer__nav a, .site-footer__base",
+      { clearProps: "all" },
+    );
+  });
+}
 
-  let xSpeed = 0.008,
-    ySpeed = 0.02;
+if (image_wrap) {
+  image_wrap.addEventListener("mousemove", (e) => {
+    let rect = image_wrap.getBoundingClientRect(),
+      x = e.clientX - rect.left,
+      y = e.clientY - rect.top;
 
-  let xMoving = x - image_wrap.clientWidth / 2;
-  let yMoving = y - image_wrap.clientHeight / 2;
+    let xSpeed = 0.008,
+      ySpeed = 0.02;
 
-  image_wrap.style.backgroundPosition = `calc(50% + ${
-    xMoving * xSpeed
-  }px) calc(58% + ${yMoving * ySpeed}px)`;
-});
+    let xMoving = x - image_wrap.clientWidth / 2;
+    let yMoving = y - image_wrap.clientHeight / 2;
 
-image_wrap.addEventListener("mouseover", () => {
-  image_wrap.style.transition = ".2s background-position";
+    image_wrap.style.backgroundPosition = `calc(50% + ${
+      xMoving * xSpeed
+    }px) calc(58% + ${yMoving * ySpeed}px)`;
+  });
+
+  image_wrap.addEventListener("mouseover", () => {
+    image_wrap.style.transition = ".2s background-position";
+    setTimeout(() => {
+      image_wrap.style.transition = "0s background-position";
+    }, 200);
+  });
+
+  image_wrap.addEventListener("mouseout", () => {
+    image_wrap.style.transition = ".5s background-position";
+    image_wrap.style.backgroundPosition = "50% 58%";
+  });
+
   setTimeout(() => {
-    image_wrap.style.transition = "0s background-position";
-  }, 200);
-});
-
-image_wrap.addEventListener("mouseout", () => {
-  image_wrap.style.transition = ".5s background-position";
-  image_wrap.style.backgroundPosition = "50% 58%";
-});
-
-setTimeout(() => {
-  image_wrap.style.pointerEvents = "auto";
-}, timeline.endTime() * 1000);
+    image_wrap.style.pointerEvents = "auto";
+  }, timeline.endTime() * 1000);
+}

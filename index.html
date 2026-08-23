@@ -7,7 +7,7 @@
   <title>Alumly Website</title>
   <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=82" />
 </head>
 
 <body>
@@ -18,16 +18,16 @@
     <section class="showcase-area">
       <div class="container">
         <nav class="hide">
-          <img src="./img/signature.png" class="signature getHover" />
+          <img src="./img/signature.webp" class="signature getHover" />
           <ul>
             <li class="nav-link getHover">
-              <a href="#">About</a>
+              <a href="#about">About</a>
             </li>
             <li class="nav-link getHover">
-              <a href="#">Assets</a>
+              <a href="#cta">Assets</a>
             </li>
             <li class="nav-link getHover">
-              <a href="#">Contact</a>
+              <a href="#contact">Contact</a>
             </li>
           </ul>
         </nav>
@@ -60,7 +60,7 @@
       </div>
     </section>
 
-    <section class="about">
+    <section class="about" id="about">
       <div class="container">
         <h6 class="comment"># from the best alumni</h6>
         <div class="grid-container">
@@ -77,13 +77,13 @@
           </div>
           <div class="main-picture-grid">
             <div class="main-grid-content">
-              <button class="more-btn">
-                View All <img src="./img/arrow.png" />
-              </button>
-              <img class="about0" src="./img/about.png" />
+              <a href="#board" class="more-btn getHover">
+                Meet the board <img src="./img/arrow.webp" alt="" />
+              </a>
+              <img class="about0" src="./img/about.webp" />
             </div>
             <div class="about2"></div>
-            <img src="./img/about3.png" class="about3" />
+            <img src="./img/about3.webp" class="about3" />
             <div class="about4"></div>
           </div>
           <div class="title-grid title-grid--two">
@@ -114,7 +114,7 @@
       </div>
     </section>
 
-    <section class="mission">
+    <section class="mission" id="mission">
       <div class="container">
         <div class="section-heading">
           <h1>
@@ -160,54 +160,77 @@
       </div>
     </section>
 
-    <section class="contact light">
+    <section class="contact light" id="contact">
       <div class="container">
         <div class="section-heading">
           <h1>
-            Contact Us<span class="leaiiba">
-              <span class="circle">
-                <span class="point one"></span>
-              </span>
-              <span class="point two"></span>
-            </span>
+            Contact Us<img class="leaiiba-img leaiiba-img--after" src="./img/leaiiba-light.png?v=56" alt="" width="176"
+              height="296" aria-hidden="true" />
           </h1>
         </div>
-        <div class="container">
-          <p class="section-description">
-            If you have any inquiries or requests, please fill out the contact
-            form below with your information and one member of the board will
-            be in touch with you as soon as possible.
-          </p>
+        <p class="section-description">
+          If you have any inquiries or requests, please fill out the contact
+          form below with your information and one member of the board will
+          be in touch with you as soon as possible.
+        </p>
 
-          <form action="index.html" method="post">
-            <div class="inputs-wrapper">
-              <div class="input-wrap">
-                <input class="contact-input" type="text" autocomplete="off" name="First Name" required />
-                <label>First name</label>
-                <i class="icon fa-solid fa-address-card"></i>
-              </div>
-              <div class="input-wrap">
-                <input class="contact-input" type="text" autocomplete="off" name="Last Name" required />
-                <label>Last name</label>
-              </div>
-              <div class="input-wrap w-100">
-                <input class="contact-input" type="email" autocomplete="off" name="Email" required />
-                <label>Email</label>
-              </div>
-              <div class="input-wrap textarea w-100">
-                <textarea class="contact-input" autocomplete="off" name="Message"></textarea>
-                <label>Do you have any questions?</label>
-              </div>
+        <form action="index.html" method="post">
+          <div class="inputs-wrapper">
+            <div class="input-wrap">
+              <input
+                class="contact-input"
+                type="text"
+                autocomplete="off"
+                name="First Name"
+                required
+                placeholder=" "
+              />
+              <label>First name</label>
+              <i class="icon fa-solid fa-address-card"></i>
             </div>
-            <div class="submit-wrap">
-              <input type="submit" value="Send" class="btn btn-light" />
+            <div class="input-wrap">
+              <input
+                class="contact-input"
+                type="text"
+                autocomplete="off"
+                name="Last Name"
+                required
+                placeholder=" "
+              />
+              <label>Last name</label>
             </div>
-          </form>
-        </div>
+            <div class="input-wrap w-100">
+              <input
+                class="contact-input"
+                type="email"
+                autocomplete="off"
+                name="Email"
+                required
+                placeholder=" "
+              />
+              <label>Email</label>
+            </div>
+            <div class="input-wrap textarea w-100">
+              <textarea
+                class="contact-input"
+                autocomplete="off"
+                name="Message"
+                placeholder=" "
+              ></textarea>
+              <label>Do you have any questions?</label>
+            </div>
+          </div>
+          <div class="submit-wrap">
+            <button type="submit" class="btn btn-light contact-send getHover">
+              Send
+              <i class="bx bx-send" aria-hidden="true"></i>
+            </button>
+          </div>
+        </form>
       </div>
     </section>
 
-    <section class="board">
+    <section class="board light-selection" id="board">
       <div class="container">
         <div class="section-heading">
           <h1>
@@ -221,116 +244,72 @@
         <div class="board-flex">
           <div class="swiper board-swiper" id="boardSwiper">
             <div class="swiper-wrapper">
-              <div class="swiper-slide board-card-wrap">
+              <div class="swiper-slide">
                 <div class="board-card">
-                  <img src="./img/ali.png" alt="Ali Boughazi" />
+                  <img src="./img/ali.webp" alt="Ali Boughazi" loading="lazy" />
+                  <div class="board-card-overlay"></div>
                   <div class="board-card-title">
-                    <h2>Ali Boughazi</h2>
-                    <h6>Ensimag</h6>
+                    <div class="board-card-title-content">
+                      <h2>Ali Boughazi</h2>
+                      <h3>President</h3>
+                      <h6>Ensimag</h6>
+                    </div>
+                    <a href="https://www.linkedin.com/in/ali-boughazi-98a141204/" target="_blank"
+                      rel="noopener noreferrer" class="getHover" aria-label="Ali Boughazi on LinkedIn">
+                      <i class="bx bxl-linkedin"></i>
+                    </a>
                   </div>
-                  <h3>President</h3>
-                </div>
-                <div class="card-footer">
-                  <h4>Ali</h4>
-                  <a href="https://www.linkedin.com/in/ali-boughazi-98a141204/" target="_blank">
-                    <i class="bx bxl-linkedin"></i>
-                  </a>
                 </div>
               </div>
-              <div class="swiper-slide board-card-wrap">
+              <div class="swiper-slide">
                 <div class="board-card">
-                  <img src="./img/zaid.png" alt="Zaid Harrak" />
+                  <img src="./img/zaid.webp" alt="Zaid Harrak" loading="lazy" />
+                  <div class="board-card-overlay"></div>
                   <div class="board-card-title">
-                    <h2>Zaid Harrak</h2>
-                    <h6>CentraleSupélec</h6>
+                    <div class="board-card-title-content">
+                      <h2>Zaid Harrak</h2>
+                      <h3>Vice President</h3>
+                      <h6>CentraleSupélec</h6>
+                    </div>
+                    <a href="https://www.linkedin.com/in/zaid-harrak/" target="_blank" rel="noopener noreferrer"
+                      class="getHover" aria-label="Zaid Harrak on LinkedIn">
+                      <i class="bx bxl-linkedin"></i>
+                    </a>
                   </div>
-                  <h3>Vice President</h3>
-                </div>
-                <div class="card-footer">
-                  <h4>Zaid</h4>
-                  <a href="https://www.linkedin.com/in/zaid-harrak/" target="_blank">
-                    <i class="bx bxl-linkedin"></i>
-                  </a>
                 </div>
               </div>
-              <div class="swiper-slide board-card-wrap">
+              <div class="swiper-slide">
                 <div class="board-card">
-                  <img src="./img/youssef.png" alt="Youssef Demghart" />
+                  <img src="./img/youssef.webp" alt="Youssef Demghart" loading="lazy" />
+                  <div class="board-card-overlay"></div>
                   <div class="board-card-title">
-                    <h2>Youssef Demghart</h2>
-                    <h6>Télécom Paris</h6>
+                    <div class="board-card-title-content">
+                      <h2>Youssef Demghart</h2>
+                      <h3>CTO</h3>
+                      <h6>Télécom Paris</h6>
+                    </div>
+                    <a href="https://www.linkedin.com/in/youssef-demghart-060541285/" target="_blank"
+                      rel="noopener noreferrer" class="getHover" aria-label="Youssef Demghart on LinkedIn">
+                      <i class="bx bxl-linkedin"></i>
+                    </a>
                   </div>
-                  <h3>Chief Technical Officer (CTO)</h3>
-                </div>
-                <div class="card-footer">
-                  <h4>Youssef</h4>
-                  <a href="https://www.linkedin.com/in/youssef-demghart-060541285/" target="_blank">
-                    <i class="bx bxl-linkedin"></i>
-                  </a>
                 </div>
               </div>
-              <div class="swiper-slide board-card-wrap">
+              <div class="swiper-slide">
                 <div class="board-card">
-                  <img src="./img/aymen2.png" alt="Aymen Mrini" />
+                  <img src="./img/aymen2.webp" alt="Aymen Mrini" loading="lazy" />
+                  <div class="board-card-overlay"></div>
                   <div class="board-card-title">
-                    <h2>Aymen Mrini</h2>
-                    <h6>ENSEEIHT</h6>
+                    <div class="board-card-title-content">
+                      <h2>Aymen Mrini</h2>
+                      <h3>General Secretary</h3>
+                      <h6>ENSEEIHT</h6>
+                    </div>
+                    <a href="https://www.linkedin.com/in/aymen-mrini-55a45229a/" target="_blank"
+                      rel="noopener noreferrer" class="getHover" aria-label="Aymen Mrini on LinkedIn">
+                      <i class="bx bxl-linkedin"></i>
+                    </a>
                   </div>
-                  <h3>General Secretary</h3>
-                </div>
-                <div class="card-footer">
-                  <h4>Aymen</h4>
-                  <a href="https://www.linkedin.com/in/aymen-mrini-55a45229a/" target="_blank">
-                    <i class="bx bxl-linkedin"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="swiper-slide board-card-wrap">
-                <div class="board-card">
-                  <img src="./img/ali.png" alt="Ali Boughazi" />
-                  <div class="board-card-title">
-                    <h2>Ali Boughazi</h2>
-                    <h6>Ensimag</h6>
-                  </div>
-                  <h3>President</h3>
-                </div>
-                <div class="card-footer">
-                  <h4>Ali</h4>
-                  <a href="https://www.linkedin.com/in/ali-boughazi-98a141204/" target="_blank">
-                    <i class="bx bxl-linkedin"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="swiper-slide board-card-wrap">
-                <div class="board-card">
-                  <img src="./img/zaid.png" alt="Zaid Harrak" />
-                  <div class="board-card-title">
-                    <h2>Zaid Harrak</h2>
-                    <h6>CentraleSupélec</h6>
-                  </div>
-                  <h3>Vice President</h3>
-                </div>
-                <div class="card-footer">
-                  <h4>Zaid</h4>
-                  <a href="https://www.linkedin.com/in/zaid-harrak/" target="_blank">
-                    <i class="bx bxl-linkedin"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="swiper-slide board-card-wrap">
-                <div class="board-card">
-                  <img src="./img/youssef.png" alt="Youssef Demghart" />
-                  <div class="board-card-title">
-                    <h2>Youssef Demghart</h2>
-                    <h6>Télécom Paris</h6>
-                  </div>
-                  <h3>Chief Technical Officer (CTO)</h3>
-                </div>
-                <div class="card-footer">
-                  <h4>Youssef</h4>
-                  <a href="https://www.linkedin.com/in/youssef-demghart-060541285/" target="_blank">
-                    <i class="bx bxl-linkedin"></i>
-                  </a>
                 </div>
               </div>
             </div>
@@ -339,55 +318,89 @@
       </div>
     </section>
 
-    <section class="cta">
+    <section class="cta light-selection" id="cta" aria-labelledby="cta-heading">
       <div class="container">
-        <div class="left-section">
-          <h1>Aujourd'hui<br> Pour Demain <span class="leaiiba">
-              <span class="circle">
-                <span class="point one"></span>
+        <div class="cta-layout">
+          <div class="cta-left">
+            <p class="cta-eyebrow"># join the platform</p>
+            <h2 class="cta-heading" id="cta-heading">
+              <span class="cta-line">Aujourd'hui</span>
+              <span class="cta-line">
+                <img class="leaiiba-img leaiiba-img--after" src="./img/leaiiba.png?v=56" alt="" width="176" height="296"
+                  aria-hidden="true" />
+                Pour
               </span>
-              <span class="point two"></span>
-            </span></h1>
-          <p>
-            Join the platform and get access to past papers from the
-            <strong>X</strong>, <strong>Mines</strong> and <strong>Centrales</strong>
-            competitive exams: subjects organised by chapter with full solutions.
-            Prepare with the resources you need.
-          </p>
-          <button class="btn btn-primary">Join the platform</button>
-        </div>
-        <div class="right-section">
-          <img src="./img/cta2.png" alt="Grandes écoles exam preparation" />
+              <span class="cta-line">Demain</span>
+            </h2>
+
+            <div class="cta-block-dark">
+              <span class="cta-block-label">Assets</span>
+              <p>
+                Past papers from the <strong>X</strong>, <strong>Mines</strong>,
+                <strong>Centrales</strong> and <strong>CCINP</strong> organised
+                by chapter, with full solutions.
+              </p>
+            </div>
+          </div>
+
+          <div class="cta-right">
+            <img src="./img/about1.webp" alt="LYMED alumni and students gathered together" class="cta-img" width="800"
+              height="1000" loading="lazy" />
+            <a href="#" class="btn cta-join getHover">
+              Join the platform
+              <i class="bx bx-link-external" aria-hidden="true"></i>
+            </a>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="container">
-      <div class="footer-left">
-        <span>Follow us on</span>
-        <div class="footer-social">
-          <a href="https://www.linkedin.com/company/alumly-anciens-du-lymed/" target="_blank"
-            aria-label="Alumly on LinkedIn">
-            <i class="bx bxl-linkedin"></i>
-          </a>
-          <a href="https://www.instagram.com/alumni_lymed/" target="_blank" aria-label="Alumly on Instagram">
-            <i class="bx bxl-instagram"></i>
-          </a>
-        </div>
+  <footer class="site-footer" aria-labelledby="footer-brand">
+    <div class="site-footer__inner">
+      <div class="site-footer__meta">
+        <p class="site-footer__eyebrow"># alumly · depuis 2023</p>
+        <p class="site-footer__place">
+          <i class="bx bx-map" aria-hidden="true"></i>
+          Martil, Maroc
+        </p>
       </div>
-      <div class="footer-right">
-        <span>&copy; Copyright 2026. Developed with <span class="footer-heart">l7ob</span> by beloved Alumly</span>
+
+      <div class="site-footer__stamp">
+        <h2 id="footer-brand" class="site-footer__brand">
+          Alumly<img class="leaiiba-img leaiiba-img--after site-footer__leaiiba" src="./img/leaiiba-light.png?v=56"
+            alt="" width="176" height="296" aria-hidden="true" />
+        </h2>
+        <p class="site-footer__line">Aujourd'hui pour demain</p>
+      </div>
+
+      <nav class="site-footer__nav" aria-label="Footer">
+        <a href="#about" class="getHover">About</a>
+        <a href="#mission" class="getHover">Mission</a>
+        <a href="#board" class="getHover">Board</a>
+        <a href="#cta" class="getHover">Assets</a>
+        <a href="#contact" class="getHover">Contact</a>
+      </nav>
+
+      <div class="site-footer__base">
+        <div class="site-footer__social">
+          <a href="https://www.linkedin.com/company/alumly-anciens-du-lymed/" target="_blank" rel="noopener noreferrer"
+            class="getHover">LinkedIn</a>
+          <a href="https://www.instagram.com/alumni_lymed/" target="_blank" rel="noopener noreferrer"
+            class="getHover">Instagram</a>
+        </div>
+        <p class="site-footer__credit">
+          Made with <span class="site-footer__l7ob">l7ob</span> · © 2026 Alumly
+        </p>
       </div>
     </div>
   </footer>
 
   <!-- Javascript Files -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="js/script.js"></script>
+  <script src="js/script.js?v=79"></script>
 </body>
 
 </html>
