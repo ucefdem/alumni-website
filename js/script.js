@@ -3,6 +3,9 @@ const cursor_circle = document.querySelector(".cursor-circle"),
   image_wrap = document.querySelector(".image-wrap");
 
 const touchNoHover = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+const prefersReducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)",
+).matches;
 
 /* Cursor first — must not depend on later animation code */
 if (!touchNoHover && cursor.length) {
@@ -77,12 +80,17 @@ timeline
   );
 
 function getYDistance(el) {
-  return (
-    window.innerHeight - document.querySelector(el).getBoundingClientRect().top
-  );
+  const node = document.querySelector(el);
+  return node ? window.innerHeight - node.getBoundingClientRect().top : 0;
 }
 
-gsap.fromTo(
+const aboutMm = typeof gsap.matchMedia === "function" ? gsap.matchMedia() : null;
+
+if (aboutMm) {
+  aboutMm.add(
+    "(min-width: 769px) and (prefers-reduced-motion: no-preference)",
+    () => {
+      gsap.fromTo(
   ".about .title-grid--one",
   { y: 150 },
   {
@@ -97,7 +105,7 @@ gsap.fromTo(
   },
 );
 
-gsap.fromTo(
+      gsap.fromTo(
   ".about .title-grid--one",
   {
     y: 0,
@@ -118,7 +126,7 @@ gsap.fromTo(
   },
 );
 
-gsap.fromTo(
+      gsap.fromTo(
   ".about2",
   {
     y: -150,
@@ -137,7 +145,7 @@ gsap.fromTo(
   },
 );
 
-gsap.fromTo(
+      gsap.fromTo(
   ".about2",
   {
     y: 0,
@@ -160,7 +168,7 @@ gsap.fromTo(
   },
 );
 
-gsap.fromTo(
+      gsap.fromTo(
   ".about-text",
   {
     y: 100,
@@ -177,7 +185,7 @@ gsap.fromTo(
   },
 );
 
-gsap.fromTo(
+      gsap.fromTo(
   ".about-text",
   {
     y: -28, // Start from the current position (after forward animation)
@@ -195,7 +203,7 @@ gsap.fromTo(
   },
 );
 
-gsap.fromTo(
+      gsap.fromTo(
   ".about3",
   {
     x: 75,
@@ -214,7 +222,7 @@ gsap.fromTo(
   },
 );
 
-gsap.fromTo(
+      gsap.fromTo(
   ".about3",
   {
     x: 0,
@@ -234,7 +242,7 @@ gsap.fromTo(
   },
 );
 
-gsap.fromTo(
+      gsap.fromTo(
   ".about4",
   {
     x: -75,
@@ -253,7 +261,7 @@ gsap.fromTo(
   },
 );
 
-gsap.fromTo(
+      gsap.fromTo(
   ".about4",
   {
     x: 0,
@@ -273,7 +281,7 @@ gsap.fromTo(
   },
 );
 
-gsap.fromTo(
+      gsap.fromTo(
   ".about .title-grid--two",
   { y: 70 },
   {
@@ -288,7 +296,7 @@ gsap.fromTo(
   },
 );
 
-gsap.fromTo(
+      gsap.fromTo(
   ".about .title-grid--two",
   {
     y: 0,
@@ -309,7 +317,7 @@ gsap.fromTo(
   },
 );
 
-gsap.fromTo(
+      gsap.fromTo(
   ".more-btn",
   { y: 40 },
   {
@@ -324,7 +332,7 @@ gsap.fromTo(
   },
 );
 
-gsap.fromTo(
+      gsap.fromTo(
   ".more-btn",
   {
     y: 0,
@@ -343,13 +351,65 @@ gsap.fromTo(
     },
     ease: "none",
   },
-);
+      );
+    },
+  );
+
+  aboutMm.add(
+    "(max-width: 768px) and (prefers-reduced-motion: no-preference)",
+    () => {
+      const mobileReveals = [
+        [".about .title-grid--one", ".about", "top 88%", "top 55%"],
+        [".about .main-grid-content", ".about", "top 80%", "top 42%"],
+        [".about .title-grid--two", ".about", "top 68%", "top 30%"],
+        [".about-text", ".about-text", "top 92%", "top 62%"],
+      ];
+
+      mobileReveals.forEach(([target, trigger, start, end], index) => {
+        gsap.fromTo(
+          target,
+          { y: index === 0 ? 44 : 32, opacity: 0.25 },
+          {
+            y: 0,
+            opacity: 1,
+            scrollTrigger: {
+              trigger,
+              start,
+              end,
+              scrub: 0.8,
+              invalidateOnRefresh: true,
+            },
+            ease: "none",
+          },
+        );
+      });
+
+      gsap.fromTo(
+        ".more-btn",
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 0.785,
+          scrollTrigger: {
+            trigger: ".about",
+            start: "top 80%",
+            end: "top 48%",
+            scrub: 0.8,
+            invalidateOnRefresh: true,
+          },
+          ease: "none",
+        },
+      );
+    },
+  );
+}
 
 // Mission section: 3 cards enter from right + fade in (complete when section bottom hits viewport bottom)
-gsap.fromTo(
+if (!prefersReducedMotion) {
+  gsap.fromTo(
   ".mission-grid .card",
   {
-    x: 120,
+    x: () => (window.innerWidth <= 768 ? 36 : 120),
     opacity: 0,
   },
   {
@@ -360,13 +420,14 @@ gsap.fromTo(
       start: "top bottom",
       end: "bottom bottom",
       scrub: 1,
+      invalidateOnRefresh: true,
     },
     ease: "none",
   },
-);
+  );
 
 // Mission section: cards exit to the right + fade out
-gsap.fromTo(
+  gsap.fromTo(
   ".mission-grid .card",
   {
     x: 0,
@@ -374,17 +435,19 @@ gsap.fromTo(
     immediateRender: false,
   },
   {
-    x: 120,
+    x: () => (window.innerWidth <= 768 ? 36 : 120),
     opacity: 0,
     scrollTrigger: {
       trigger: ".mission",
       start: "bottom bottom",
       end: "bottom top",
       scrub: 1,
+      invalidateOnRefresh: true,
     },
     ease: "none",
   },
-);
+  );
+}
 
 // Board section: Swiper carousel
 const boardSwiper = new Swiper("#boardSwiper", {
@@ -395,28 +458,41 @@ const boardSwiper = new Swiper("#boardSwiper", {
   resistanceRatio: 0.85,
   loop: true,
   speed: 800,
-  autoplay: {
-    delay: 3200,
-    disableOnInteraction: false,
-    pauseOnMouseEnter: true,
+  autoplay: prefersReducedMotion
+    ? false
+    : {
+        delay: 3200,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+  breakpoints: {
+    769: {
+      spaceBetween: 24,
+    },
+    0: {
+      spaceBetween: 16,
+    },
   },
 });
 
-gsap.fromTo(
-  ".board .board-flex",
-  { y: 50, opacity: 0 },
-  {
-    y: 0,
-    opacity: 1,
-    scrollTrigger: {
-      trigger: ".board",
-      start: "top 80%",
-      end: "top 45%",
-      scrub: 1,
+if (!prefersReducedMotion) {
+  gsap.fromTo(
+    ".board .board-flex",
+    { y: 50, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      scrollTrigger: {
+        trigger: ".board",
+        start: "top 80%",
+        end: "top 45%",
+        scrub: 1,
+        invalidateOnRefresh: true,
+      },
+      ease: "none",
     },
-    ease: "none",
-  },
-);
+  );
+}
 
 const ctaMm = typeof gsap.matchMedia === "function" ? gsap.matchMedia() : null;
 
@@ -528,7 +604,7 @@ if (ctaMm) {
   });
 }
 
-if (image_wrap) {
+if (image_wrap && !touchNoHover) {
   image_wrap.addEventListener("mousemove", (e) => {
     let rect = image_wrap.getBoundingClientRect(),
       x = e.clientX - rect.left,
@@ -561,3 +637,7 @@ if (image_wrap) {
     image_wrap.style.pointerEvents = "auto";
   }, timeline.endTime() * 1000);
 }
+
+window.addEventListener("load", () => {
+  ScrollTrigger.refresh();
+});
