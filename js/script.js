@@ -40,44 +40,133 @@ if (!touchNoHover && cursor.length) {
   document.body.style.cursor = "auto";
 }
 
+const heroNav = document.querySelector(".showcase-area nav");
+const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+
+if (heroNav && mobileMenuToggle) {
+  const closeMobileMenu = () => {
+    heroNav.classList.remove("is-open");
+    mobileMenuToggle.setAttribute("aria-expanded", "false");
+  };
+
+  mobileMenuToggle.addEventListener("click", () => {
+    const willOpen = !heroNav.classList.contains("is-open");
+    heroNav.classList.toggle("is-open", willOpen);
+    mobileMenuToggle.setAttribute("aria-expanded", String(willOpen));
+  });
+
+  heroNav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeMobileMenu);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMobileMenu();
+      mobileMenuToggle.focus();
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!heroNav.contains(event.target)) closeMobileMenu();
+  });
+}
+
 gsap.registerPlugin(ScrollTrigger);
 
-let timeline = gsap.timeline({
-  defaults: { duration: 1.3, ease: "power3.inOut" },
-});
+let timeline = gsap.timeline({ paused: true });
+const heroMm = typeof gsap.matchMedia === "function" ? gsap.matchMedia() : null;
 
+if (heroMm) {
+  heroMm.add(
+    "(min-width: 769px) and (prefers-reduced-motion: no-preference)",
+    () => {
+      timeline = gsap.timeline({
+        defaults: { duration: 1.3, ease: "power3.inOut" },
+      });
 
-timeline
-  .to(".image-wrap", {
-    height: "440px",
-    backgroundSize: "105%",
-    duration: 1.5,
-    ease: "power4.inOut",
-  })
-  .to(
-    ".image-wrap",
-    {
-      height: "200px",
-      backgroundPosition: "50% 58%",
-      y: "0",
+      timeline
+        .to(".image-wrap", {
+          height: "440px",
+          backgroundSize: "105%",
+          duration: 1.5,
+          ease: "power4.inOut",
+        })
+        .to(
+          ".image-wrap",
+          {
+            height: "200px",
+            backgroundPosition: "50% 58%",
+            y: "0",
+          },
+          1.5,
+        )
+        .from(
+          ".big-name",
+          {
+            y: getYDistance(".big-name"),
+          },
+          1.5,
+        )
+        .from(
+          ".hide",
+          {
+            opacity: "0",
+            duration: 1.3,
+          },
+          1.5,
+        );
     },
-    1.5,
-  )
-  .from(
-    ".big-name",
-    {
-      y: getYDistance(".big-name"),
-    },
-    1.5,
-  )
-  .from(
-    ".hide",
-    {
-      opacity: "0",
-      duration: 1.3,
-    },
-    1.5,
   );
+
+  heroMm.add(
+    "(max-width: 768px) and (prefers-reduced-motion: no-preference)",
+    () => {
+      timeline = gsap.timeline({
+        defaults: { ease: "power3.out" },
+      });
+
+      timeline
+        .from(".showcase-area nav", {
+          y: -16,
+          opacity: 0,
+          duration: 0.55,
+        })
+        .from(
+          ".mobile-hero-eyebrow",
+          { y: 14, opacity: 0, duration: 0.45 },
+          0.12,
+        )
+        .from(
+          ".big-name",
+          { y: 36, opacity: 0, duration: 0.75 },
+          0.18,
+        )
+        .fromTo(
+          ".image-wrap",
+          { clipPath: "inset(100% 0 0 0)" },
+          { clipPath: "inset(0% 0 0 0)", duration: 0.9 },
+          0.38,
+        )
+        .from(
+          ".mobile-hero-actions",
+          { y: 16, opacity: 0, duration: 0.5 },
+          0.72,
+        )
+        .from(
+          ".bottom-section",
+          { y: 12, opacity: 0, duration: 0.5 },
+          0.82,
+        );
+    },
+  );
+
+  heroMm.add("(prefers-reduced-motion: reduce)", () => {
+    gsap.set(
+      ".showcase-area nav, .mobile-hero-eyebrow, .big-name, .image-wrap, .mobile-hero-actions, .bottom-section",
+      { clearProps: "transform,opacity,clipPath" },
+    );
+  });
+}
 
 function getYDistance(el) {
   const node = document.querySelector(el);
@@ -359,16 +448,16 @@ if (aboutMm) {
     "(max-width: 768px) and (prefers-reduced-motion: no-preference)",
     () => {
       const mobileReveals = [
-        [".about .title-grid--one", ".about", "top 88%", "top 55%"],
-        [".about .main-grid-content", ".about", "top 80%", "top 42%"],
-        [".about .title-grid--two", ".about", "top 68%", "top 30%"],
+        [".about .title-grid--two", ".about", "top 88%", "top 58%"],
+        [".about .about0", ".about", "top 78%", "top 42%"],
         [".about-text", ".about-text", "top 92%", "top 62%"],
+        [".more-btn--mobile", ".more-btn--mobile", "top 96%", "top 76%"],
       ];
 
       mobileReveals.forEach(([target, trigger, start, end], index) => {
         gsap.fromTo(
           target,
-          { y: index === 0 ? 44 : 32, opacity: 0.25 },
+          { y: index === 0 ? 40 : 28, opacity: 0.2 },
           {
             y: 0,
             opacity: 1,
@@ -383,23 +472,6 @@ if (aboutMm) {
           },
         );
       });
-
-      gsap.fromTo(
-        ".more-btn",
-        { y: 20, opacity: 0 },
-        {
-          y: 0,
-          opacity: 0.785,
-          scrollTrigger: {
-            trigger: ".about",
-            start: "top 80%",
-            end: "top 48%",
-            scrub: 0.8,
-            invalidateOnRefresh: true,
-          },
-          ease: "none",
-        },
-      );
     },
   );
 }
@@ -447,6 +519,69 @@ if (!prefersReducedMotion) {
     ease: "none",
   },
   );
+}
+
+const contactMm = typeof gsap.matchMedia === "function" ? gsap.matchMedia() : null;
+
+if (contactMm) {
+  const createContactReveal = (isMobile) => {
+    const introItems =
+      ".contact .contact-eyebrow, .contact .section-heading, .contact .section-description, .contact .contact-meta";
+    const formItems =
+      ".contact .contact-form__header, .contact .input-wrap, .contact .submit-wrap";
+
+    gsap.set(introItems, { opacity: 0, y: isMobile ? 28 : 42 });
+    gsap.set(".contact .contact-form", {
+      clipPath: isMobile ? "inset(100% 0 0 0)" : "inset(0 0 0 100%)",
+    });
+    gsap.set(formItems, { opacity: 0, y: 18 });
+
+    const contactTl = gsap.timeline({
+      defaults: { ease: "power2.out" },
+      scrollTrigger: {
+        trigger: ".contact",
+        start: isMobile ? "top 84%" : "top 74%",
+        end: "bottom 20%",
+        toggleActions: "play reverse play reverse",
+        invalidateOnRefresh: true,
+      },
+    });
+
+    contactTl
+      .to(introItems, {
+        opacity: 1,
+        y: 0,
+        duration: 0.65,
+        stagger: 0.08,
+      })
+      .to(
+        ".contact .contact-form",
+        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.9 },
+        0.18,
+      )
+      .to(
+        formItems,
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.055 },
+        0.48,
+      );
+  };
+
+  contactMm.add(
+    "(min-width: 769px) and (prefers-reduced-motion: no-preference)",
+    () => createContactReveal(false),
+  );
+
+  contactMm.add(
+    "(max-width: 768px) and (prefers-reduced-motion: no-preference)",
+    () => createContactReveal(true),
+  );
+
+  contactMm.add("(prefers-reduced-motion: reduce)", () => {
+    gsap.set(
+      ".contact .contact-eyebrow, .contact .section-heading, .contact .section-description, .contact .contact-meta, .contact .contact-form, .contact .contact-form__header, .contact .input-wrap, .contact .submit-wrap",
+      { clearProps: "all" },
+    );
+  });
 }
 
 // Board section: Swiper carousel
